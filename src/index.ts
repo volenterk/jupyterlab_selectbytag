@@ -23,7 +23,7 @@ import {
   NotebookActions
 } from '@jupyterlab/notebook';
 
-import logo from './runbytag_icon.svg';
+import logo from '../style/icons/runbytag_icon.svg';
 
 export const runIcon = new LabIcon({
   name: 'runIcon',
@@ -63,10 +63,10 @@ export class RunByTagExtension implements DocumentRegistry.IWidgetExtension<Note
       onClick: runByTag,
       tooltip: 'Run by tag',
     });
-    panel.toolbar.insertItem(10, 'runByTag', button);
+    panel.toolbar.insertAfter('cellType', 'runByTag', button);
 
     const dropdown = new RunByTagDropdownWidget(context.model);
-    panel.toolbar.insertItem(11, 'dropdown', dropdown);
+    panel.toolbar.insertAfter('runByTag', 'dropdown', dropdown);
 
     return new DisposableDelegate(() => {
       button.dispose();
