@@ -1,21 +1,21 @@
 import { ReactWidget } from '@jupyterlab/apputils';
 import React from 'react';
 import { INotebookModel } from '@jupyterlab/notebook';
-import { RunByTagComponent } from './runByTagComponent';
+import { SelectByTagComponent } from './selectByTagComponent';
 
-export class RunByTagDropdownWidget extends ReactWidget {
+export class SelectByTagDropdownWidget extends ReactWidget {
   private _model: INotebookModel;
 
   constructor(model: INotebookModel) {
     super();
     this._model = model;
-    this.addClass('jp-ReactWidget');
-    this.addClass('jp-HTMLSelect');
+    this.addClass('lm-Widget');
+    this.addClass('p-Widget');
     this.addClass('jp-Notebook-toolbarCellType');
-    this.addClass('jp-Notebook-toolbarCellTypeDropdown');
+    this.addClass('jp-Toolbar-item');
   }
 
   render(): JSX.Element {
-    return <RunByTagComponent model={this._model} />;
+    return <SelectByTagComponent model={this._model} />;
   }
 }

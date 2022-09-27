@@ -2,16 +2,16 @@ import React from 'react';
 import { INotebookModel } from '@jupyterlab/notebook';
 import { collectTags } from './collectTags';
 
-interface IRunByTagProps {
+interface ISelectByTagProps {
   model: INotebookModel;
 }
 
-interface IRunByTagState {
+interface ISelectByTagState {
   tags: string[];
 }
 
-export class RunByTagComponent extends React.Component<IRunByTagProps, IRunByTagState> {
-  constructor(props: IRunByTagProps) {
+export class SelectByTagComponent extends React.Component<ISelectByTagProps, ISelectByTagState> {
+  constructor(props: ISelectByTagProps) {
     super(props);
     this.state = { tags: ['-'] };
   }
@@ -24,7 +24,11 @@ export class RunByTagComponent extends React.Component<IRunByTagProps, IRunByTag
         </option>
       );
     }
-    return <select>{dropdownList}</select>;
+    return <div className="jp-HTMLSelect jp-DefaultStyle jp-Notebook-toolbarCellTypeDropdown">
+             <select>
+               {dropdownList}
+             </select>
+           </div>;
   };
 
   componentDidMount() {

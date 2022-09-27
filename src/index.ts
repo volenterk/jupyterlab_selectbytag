@@ -14,7 +14,7 @@ import { ToolbarButton } from '@jupyterlab/apputils';
 
 import { DocumentRegistry } from '@jupyterlab/docregistry';
 
-import { RunByTagDropdownWidget } from './runByTagDropdownWidget'
+import { SelectByTagDropdownWidget } from './selectByTagDropdownWidget'
 
 import {
   NotebookPanel,
@@ -23,23 +23,24 @@ import {
   NotebookActions
 } from '@jupyterlab/notebook';
 
-import logo from '../style/icons/runbytag_icon.svg';
+import logo from '../style/icons/selectbytag_icon.svg';
 
-export const runIcon = new LabIcon({
-  name: 'runIcon',
+export const selectIcon = new LabIcon({
+  name: 'selectIcon',
   svgstr: logo
 });
 
 const plugin: JupyterFrontEndPlugin<void> = {
   activate,
-  id: 'jupyterlab_runbytag',
+  id: 'jupyterlab_selectbytag',
   autoStart: true,
 };
 
-export class RunByTagExtension implements DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
+export class SelectByTagExtension implements DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
   createNew(panel: NotebookPanel, context: DocumentRegistry.IContext<INotebookModel>): IDisposable {
-    const runByTag = () => {
-      const prevIndex = panel.content.activeCellIndex;
+    const selectbytag = () => {
+      NotebookActions.deselectAll(panel.content);
+
       const topOption = dropdown.node.getElementsByTagName('select')[0];
       const currentTag = topOption.options[topOption.selectedIndex].value;
 
@@ -48,25 +49,20 @@ export class RunByTagExtension implements DocumentRegistry.IWidgetExtension<Note
         cellTags = cellTags.toString().split(',');
         if(cellTags.indexOf(currentTag) !== -1) {
           panel.content.select(child);
-          panel.content.activeCellIndex = index;
         }
-      });
-
-      NotebookActions.run(panel.content, context.sessionContext).then(() => {
-        panel.content.activeCellIndex = prevIndex;
       });
     };
 
     const button = new ToolbarButton({
-      className: 'run-by-tag-button',
-      icon: runIcon,
-      onClick: runByTag,
-      tooltip: 'Run by tag',
+      className: 'lm-Widget p-Widget jp-CommandToolbarButton nbdime-toolbarButton jp-Toolbar-item bp3-button bp3-minimal jp-ToolbarButtonComponent minimal jp-Button',
+      icon: selectIcon,
+      onClick: selectbytag,
+      tooltip: 'Select by tag',
     });
-    panel.toolbar.insertAfter('cellType', 'runByTag', button);
+    panel.toolbar.insertAfter('cellType', 'selectbytag', button);
 
-    const dropdown = new RunByTagDropdownWidget(context.model);
-    panel.toolbar.insertAfter('runByTag', 'dropdown', dropdown);
+    const dropdown = new SelectByTagDropdownWidget(context.model);
+    panel.toolbar.insertAfter('selectbytag', 'dropdown', dropdown);
 
     return new DisposableDelegate(() => {
       button.dispose();
@@ -76,7 +72,7 @@ export class RunByTagExtension implements DocumentRegistry.IWidgetExtension<Note
 }
 
 function activate(app: JupyterFrontEnd, tracker: INotebookTracker, model: INotebookModel): void {
-  app.docRegistry.addWidgetExtension('Notebook', new RunByTagExtension());
+  app.docRegistry.addWidgetExtension('Notebook', new SelectByTagExtension());
 }
 
 export default plugin;
