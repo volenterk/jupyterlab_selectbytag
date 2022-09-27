@@ -1,4 +1,4 @@
-# runbytag
+# jupyterlab_selectbytag
 
 [![Github Actions Status](https://github.com/github_username/runbytag/workflows/Build/badge.svg)](https://github.com/github_username/runbytag/actions/workflows/build.yml)
 A JupyterLab extension.
