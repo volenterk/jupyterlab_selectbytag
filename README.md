@@ -12,7 +12,7 @@ A JupyterLab extension.
 To install the extension, execute:
 
 ```bash
-pip install runbytag
+pip install jupyterlab_selectbytag
 ```
 
 ## Uninstall
@@ -20,7 +20,7 @@ pip install runbytag
 To remove the extension, execute:
 
 ```bash
-pip uninstall runbytag
+pip uninstall jupyterlab_selectbytag
 ```
 
 ## Contributing
@@ -64,7 +64,7 @@ jupyter lab build --minimize=False
 ### Development uninstall
 
 ```bash
-pip uninstall runbytag
+pip uninstall jupyterlab_selectbytag
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
